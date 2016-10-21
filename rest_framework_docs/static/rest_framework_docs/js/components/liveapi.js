@@ -41,7 +41,7 @@ var LiveAPIEndpoints = React.createClass({
       headers['Authorization'] = this.refs.request.state.headers.authorization;
     };
     
-    if (this.getCookie("csrftoken") != "") {
+    if (this.getCookie('csrftoken') != '') {
       headers['X-CSRFToken'] = this.getCookie('csrftoken');
     };
 
