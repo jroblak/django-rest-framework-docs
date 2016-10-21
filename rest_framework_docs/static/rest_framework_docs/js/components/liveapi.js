@@ -20,6 +20,15 @@ var LiveAPIEndpoints = React.createClass({
       this.refs.request.state.data
     ) : null;
   },
+  
+  getCookie: function(name) {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts.length == 2) {
+      return parts.pop().split(";").shift();
+    };
+    return "";
+  },
 
   makeRequest: function (event) {
     event.preventDefault();
@@ -30,6 +39,10 @@ var LiveAPIEndpoints = React.createClass({
     var headers = {};
     if (this.refs.request.state.headers.authorization) {
       headers['Authorization'] = this.refs.request.state.headers.authorization;
+    };
+    
+    if (this.getCookie("csrftoken") != "") {
+      headers['X-CSRFToken'] = this.getCookie('csrftoken');
     };
 
     var data = this.getData();
